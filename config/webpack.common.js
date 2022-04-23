@@ -1,6 +1,8 @@
 // webpack公共配置
 const path = require('path')//处理文件路径的小工具
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const TerserPlugin = require("terser-webpack-plugin")
 module.exports = {
     entry: {// 核心入口
         index : path.join(__dirname, "../src/index.js")
@@ -11,10 +13,14 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.join(__dirname, "../tempate.html"),
+            template: path.join(__dirname, "../template.html"),
             filename: "index.html"
-        })
+        }),
+        new MiniCssExtractPlugin(),
     ],
+    stats: {
+        modules: false,
+    },
     module: {
         rules: [
             {
@@ -24,7 +30,7 @@ module.exports = {
             {
                 test: /\.(css)$/,
                 use: [
-                    "style-loader",
+                    MiniCssExtractPlugin.loader,
                     {
                         loader: "css-loader",
                         options: {
@@ -38,11 +44,36 @@ module.exports = {
             },
             {
                 test: /\.(less)/,
-                use: ["style-loader", "css-loader", "less-loader"]
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: "css-loader",
+                        options: {
+                            importLoaders: 2,
+                        },
+                    },
+                    {
+                        loader: "postcss-loader",
+                    },
+
+                    "less-loader",
+                ],
             },
             {
                 test: /\.(scss)$/,
-                use: ["style-loader", "css-loader", "sass-loader"]
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: "css-loader",
+                        options: {
+                            importLoaders: 2,
+                        },
+                    },
+                    {
+                        loader: "postcss-loader",
+                    },
+                    "sass-loader",
+                ],
             },
             {
                 test: /\.(bmp|gif|png|jpe?g)$/,
@@ -71,4 +102,11 @@ module.exports = {
             },
         ],
     },
+    optimization: {
+        minimizer: [
+            new TerserPlugin({
+                extractComments: false, //不在生成license
+            })
+        ]
+    }
 }
