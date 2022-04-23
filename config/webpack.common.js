@@ -1,8 +1,9 @@
 // webpack公共配置
 const path = require('path')//处理文件路径的小工具
 const HtmlWebpackPlugin = require("html-webpack-plugin")
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const TerserPlugin = require("terser-webpack-plugin")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")//打包生成css
+const TerserPlugin = require("terser-webpack-plugin")//打包压缩js
+const WebpackBar = require("webpackbar")//打包进度
 module.exports = {
     entry: {// 核心入口
         index : path.join(__dirname, "../src/index.js")
@@ -17,6 +18,7 @@ module.exports = {
             filename: "index.html"
         }),
         new MiniCssExtractPlugin(),
+        new WebpackBar(),
     ],
     stats: {
         modules: false,
@@ -108,5 +110,9 @@ module.exports = {
                 extractComments: false, //不在生成license
             })
         ]
+    },
+    externals: {
+        react: "React",
+        "react-dom": "ReactDOM"
     }
 }
