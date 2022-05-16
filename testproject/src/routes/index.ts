@@ -7,7 +7,7 @@ import {RouteConfig} from 'react-router-config'
 
 const routes:RouteConfig = [
   {
-    path:'/',
+    path:'/Home',
     exact:true,
     component:Home
   },

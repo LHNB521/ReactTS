@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styles from './about.module.less';
 // redux
 import { connect } from "react-redux";
-import { setName, setAge } from "../store/action";
+import { setName, setAge } from "../store/action-types";
 
 interface Props {
   setAge: Function;
@@ -10,19 +10,19 @@ interface Props {
   age: number;
   name: string;
 }
-interface State {}
-class About extends Component<Props,State>{
-  refs:any = React.createRef()
+interface State { }
+class About extends Component<Props, State>{
+  refs: any = React.createRef()
   // eslint-disable-next-line @typescript-eslint/no-useless-constructor
-  constructor(props:Props){
+  constructor(props: Props) {
     super(props)
   }
-  changeAge(){
+  changeAge() {
     this.props.setAge(1);
     console.log(this.props);
   }
-  changeName(){
-    let name:number = this.refs.value
+  changeName() {
+    let name: number = this.refs.value
     this.props.setName(name)
     console.log(this.refs);
     this.refs.value = ''
@@ -36,9 +36,9 @@ class About extends Component<Props,State>{
         </div>
         <div>
           <p>名字是：{this.props.name}</p>
-          <input ref={(input: HTMLInputElement) => this.refs = input}  type="text" /> 
+          <input ref={(input: HTMLInputElement) => this.refs = input} type="text" />
           <button onClick={this.changeName.bind(this)}>修改姓名</button>
-          <p>年龄是：{this.props.age}</p> 
+          <p>年龄是：{this.props.age}</p>
           <button onClick={this.changeAge.bind(this)}>修改年龄</button>
         </div>
       </div>
@@ -46,6 +46,6 @@ class About extends Component<Props,State>{
   }
 }
 
-export default connect((props,state)=>Object.assign({},props,state),{
-  setAge,setName
+export default connect((props, state) => Object.assign({}, props, state), {
+  setAge, setName
 })(About);

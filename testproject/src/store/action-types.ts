@@ -13,3 +13,6 @@ export const setName = function (name: string) {
     name: name,
   };
 };
+
+export const CHANGE_COLLAPSED = 'CHANGE_COLLAPSED' // 左侧菜单收缩的变量
+export const CHANGE_COLOR = 'CHANGE_COLOR' // 左侧菜单收缩的变量

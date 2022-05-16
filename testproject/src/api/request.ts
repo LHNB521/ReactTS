@@ -3,14 +3,13 @@
 import axios from "axios";
 
 declare module 'axios' {
-     export interface AxiosResponse<T = any> extends Promise<T> {}
- }
+    export interface AxiosResponse<T = any> extends Promise<T> {}
+}
 
 export const Service = axios.create({
   timeout: 3000, //延迟时间
-  method: "POST",
+  method: "GET",
   headers: {
-    "pc-token": "4a82b23dbbf3b23fd8aa291076e660ec",
     "content-Type": "application/x-www-form-urlencoded",
   },
 });

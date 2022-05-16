@@ -1,31 +1,23 @@
 import { createStore } from "redux";
-import { SET_AGE, SET_NAME } from "./action";
-
-interface User {
-  name: string;
-  age: number;
-}
-
-const common: User = {
-  name: "张三123",
-  age: 18,
-};
-
-function user(state = common, action: any) {
-  switch (action.type) {
-    case SET_AGE:
-      return {
-        ...state,
-        age: state.age + action.n,
-      };
-    case SET_NAME:
-      return {
-        ...state,
-        name: action.name,
-      };
-    default:
-      return state;
-  }
-}
-
-export default createStore(user);
+import rootReducer from './reducers'
+// interface Reducer {
+//   collapsed: boolean,
+//   color: string
+// }
+// const common: Reducer = {
+//   collapsed: false,
+//   color: '#fff'
+// }
+// function store(state = common, action: any) {
+//   switch (action.type) {
+//     case types.CHANGE_COLLAPSED:
+//       return {
+//         ...state,
+//         collapsed: !state.collapsed
+//       };
+//     default:
+//       return state
+//   }
+// }
+let store = createStore(rootReducer)
+export default store;

@@ -7,7 +7,7 @@ export function getCarList(config: { page: string; }){
     params.append('page',config.page);
 
     return Service({
-        url:'./api/getCarList',
+        url:'/api/menu',
         data:params
     })
 }
